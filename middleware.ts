@@ -6,11 +6,12 @@ import { AppExperiment, ABTestSettings, Iso2CountryCode, LanguageCode } from "@h
 import groq from "groq";
 
 export const config = {
-	matcher: "/",
+	matcher: ["/((?!api|_next/static|favicon.ico).*)"],
 };
 
 export async function middleware(req: NextRequest & { growthbook: any }, res: NextResponse) {
 	const currentSlug = req.nextUrl.pathname;
+	console.log("currentSlug: ", currentSlug);
 
 	// Get abSettings from Sanity
 	const abSettings = await getABTestSettings(sanityClient, "da", "DK");
